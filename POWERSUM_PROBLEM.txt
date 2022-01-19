@@ -1,0 +1,91 @@
+PROBLEM NAME - POWER SUM
+PROBLEM CODE - POWSUM
+
+PROBLEM DESCRIPTION - 
+
+You are given a sequence A of N integers such that every element is a non-negative power of 2.
+
+A sequence is called good if its sum is a non-negative power of 2. You would like to turn A into a good sequence.
+
+To achieve this, you can perform the following operation on A:
+
+Pick a non-empty subsequence of A, pick a positive integer X such that X≤230, and multiply every element of this subsequence by X.
+Find the minimum number of operations required to turn A into a good sequence. Also, find one sequence of operations which does this. If there are multiple possible answers, you may find any of them.
+
+Input Format - 
+
+The first line of input contains a single integer T, denoting the number of test cases. The description of T test cases follows.
+The first line of each test case contains a single integer N.
+The second line of each test case contains N space-separated integers A1,A2,…,AN.
+
+Output Format - 
+
+For each test case, print the answer in the following format:
+
+First, print one line containing an integer M, denoting the minimum number of moves required.
+Then, print 2M lines describing M operations.
+Each operation is described by 2 lines.
+On the first line, print two space-separated integers K and X, denoting the size of the subsequence and the multiplier for this operation.
+On the second line, print K distinct space-separated integers denoting the indices of the elements chosen to be multiplied in this operation. These K integers can be printed in any order.
+
+
+Sample Input - 
+2
+4
+4 8 4 32
+3
+2 2 4
+Sample Output -
+ 
+1
+3 2
+1 2 3
+0
+
+SOLUTION IN JAVA - 
+
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+import com.google.common.primitives.Ints;
+
+/* Name of the class has to be "Main" only if the class is public. */
+class Codechef
+{
+    public static int power(int p){
+        p = p-1;
+        while((p&p-1) != 0){
+            p = p&p-1;
+        }
+        return p<<1;
+    }
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-- > 0){
+		    int p = sc.nextInt();
+		    int a[] = new int[p];
+		    int b[] = new int[p];
+		    int i,j = 0 , min = 0 , c = 1 , s = 0 , ans = 0 , m = 0;
+		    for(i = 0 ; i< p ; i ++){
+		        a[i] = sc.nextInt();
+		        b[i] = a[i];
+		        s = s+a[i];
+		    }
+		    Arrays.sort(b);
+		    m  = power(s);
+		    min = b[0];
+		    s = s-min;
+		    ans = s;
+		    c = (m-s)/min;
+		    if (c == 1) System.out.println("0");
+		    else{
+		        System.out.println("1");
+		        System.out.println("1 "+c);
+		        int index = Ints.indexOf(a,min);
+		        System.out.println(index+1);
+		    }
+		}
+	}
+}
